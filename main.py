@@ -3,24 +3,24 @@ from github import Github
 
 # First create a Github instance:
 g = Github(os.environ['ACCESS_TOKEN'])
+org = os.environ['ORG']
 
-# Get user
-user = g.get_user()
+# Get Org
+organization = g.get_organization(org)
 
-def createEmptyRepo(name='sample_repo', description='some description'):
-  # Create empty repo
-  repo = user.create_repo(
+def createRepo(name='sample_repo', description=':school_satchel: Learning French'):
+  repo = organization.create_repo(
     name,
     allow_rebase_merge=True,
     auto_init=False,
     description=description,
     has_issues=True,
     has_projects=True,
-    has_wiki=False,
-    private=True,
+    has_wiki=True,
+    private=False,
   )
   print(repo)
-  repo = g.get_repo('gonzalovazquez/sample_repo')
+  repo = g.get_repo(org + '/sample_repo')
   text = """
   # Sample Repo
 
@@ -33,8 +33,9 @@ def createEmptyRepo(name='sample_repo', description='some description'):
   And this is a *Bold*.
 
   """
-  repo.create_file("README.md", "ci(scaffold): add Readme.md", text, branch="master")
-  repo.create_file("resources/README.md", "ci(scaffold): automated", "test", branch="master")
+  repo.create_file("README.md", "ci: :robot: automated init", text, branch="master")
+  repo.create_file("resources/README.md", "ci: :robot: automated init", "test", branch="master")
+  repo.create_file("courses/README.md", "ci: :robot: automated init", "test", branch="master")
 
-# Create Empty Repo
-createEmptyRepo()
+# Create Repo
+createRepo()
