@@ -1,0 +1,15 @@
+version: 2.0
+
+id: school-schema
+
+about:
+  title: School Schema
+  description: Schema for school
+
+contacts:
+  - type: author
+    name: Gonzalo Vazquez
+    email: gonzalovazquez010@gmail.com
+
+priority:
+  - type: high
