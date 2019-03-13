@@ -49,7 +49,8 @@ list_of_things = [
   {"name": "Learning algebra", "description": "Learning alegrabra for statistics"},
   {"name": "Learning algorithms", "description": "Learning common algorithm and how to design one"},
   {"name": "Learning fitness", "description": "Tips and tools for a healthier body and nutrition"},
-  {"name": "Learning hacking", "description": "Learning ethical hacking"}
+  {"name": "Learning hacking", "description": "Learning ethical hacking"},
+  {"name": "Learning bash", "description": "Learning bash to automate everyday tasks"}
 ]
 
 # Create all projects
