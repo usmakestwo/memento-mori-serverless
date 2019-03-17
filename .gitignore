@@ -1,5 +1,8 @@
+# Custom
 .DS_STORE
-local-init.sh
+config/local-init.sh
+*/*.terraform
+config/*.json
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
