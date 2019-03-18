@@ -10,6 +10,7 @@ pylint = "*"
 pygithub = "*"
 pymongo = "*"
 dnspython = "*"
+flask = "*"
 
 [requires]
 python_version = "3.7"

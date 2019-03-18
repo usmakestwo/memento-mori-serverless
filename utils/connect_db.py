@@ -2,10 +2,8 @@ import os
 import pymongo
 import datetime
 import dns # required for connecting with SRV
-
-username = os.environ["MONGO_USER"]
-password = os.environ["MONGO_PASS"]
-url = "mongodb+srv://{}:{}@cluster0-rpoft.gcp.mongodb.net/test?retryWrites=true".format(username, password)
+import json
+from bson import json_util
 
 class Datastore:
   def __init__(self):
@@ -28,6 +26,6 @@ class Datastore:
     mydb = client["universitas_library"]
     mycol = mydb["projects"]
     collection = []
-    for x in mycol.find():
-      collection.append(x)
-    return collection
+    for record in mycol.find():
+      collection.append(record)
+    return json.dumps(collection, default=json_util.default)

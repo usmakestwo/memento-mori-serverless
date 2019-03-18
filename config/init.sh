@@ -9,3 +9,7 @@ echo 'Access token initialized: '$ACCESS_TOKEN
 echo 'Organization set to:' $ORG
 echo 'GCP Credentials set to:' $GOOGLE_APPLICATION_CREDENTIALS
 echo 'GCP APP Credentials set to:' $GOOGLE_APPLICATION_CREDENTIALS
+
+export FLASK_APP=main.py
+export FLASK_ENV=production
+.venv/bin/python3.7 -m flask run

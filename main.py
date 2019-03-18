@@ -1,5 +1,6 @@
 import os
 from github import Github
+from flask import Flask, Response
 from utils.template_builder import TemplateBuilder
 from utils.connect_db import Datastore
 
@@ -12,6 +13,18 @@ organization = g.get_organization(org)
 
 # Database
 db = Datastore()
+
+# Initialize Flask
+app = Flask(__name__)
+
+@app.route("/health")
+def health():
+  return 'OK'
+
+@app.route("/api/projects")
+def fetchProjects():
+  projects = db.return_all_records()
+  return Response(projects, status=200, mimetype='application/json')
 
 def createRepo(name="Sample", description="Learning A new skill"):
   github_name = name.replace(" ", "-").lower()
@@ -39,4 +52,4 @@ def createRepo(name="Sample", description="Learning A new skill"):
 
 # Create all projects
 
-createRepo('test', 'test description')
+#createRepo('test', 'test description')
