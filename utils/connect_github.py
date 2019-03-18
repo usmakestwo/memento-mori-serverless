@@ -5,8 +5,8 @@ from utils.template_builder import TemplateBuilder
 class GithubClient():
   def __init__(self):
     # First create a Github instance
-    self.git = Github('cbfeea192340ca5e4087a6623343a1712e8421bd')
-    self.org = 'memento-mori-universitas'
+    self.git = Github(os.environ["ACCESS_TOKEN"])
+    self.org = os.environ["ORG"]
     # Get Org
     self.organization = self.git.get_organization(self.org)
 
