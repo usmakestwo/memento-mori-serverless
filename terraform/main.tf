@@ -1,6 +1,14 @@
+variable "UN" {}
+variable "PW" {}
+
 variable "project_name" {
   type = "string"
   default = "memento-mori-universitas"
+}
+
+variable "cloud_func_name" {
+  type = "string"
+  default = "universitas_read_courses"
 }
 
 provider "google" {
@@ -9,16 +17,38 @@ provider "google" {
   zone    = "us-east4-a"
 }
 
-# BIG QUERY DATASET
-resource "google_bigquery_dataset" "default" {
-  dataset_id                  = "universitas_library"
-  friendly_name               = "memento-mori-universitas-library"
-  description                 = "Library for projects"
+
+# GOOGLE CLOUD FUNCTION - Read records
+data "archive_file" "gcp_read_courses_dist" {
+  type        = "zip"
+  source_dir  = "../gcp-functions/gcp-read-courses"
+  output_path = "dist/${var.cloud_func_name}.zip"
 }
 
-# BIG QUERY TABLE
-resource "google_bigquery_table" "default" {
-  dataset_id = "${google_bigquery_dataset.default.dataset_id}"
-  table_id   = "projects"
-  schema = "${file("bq/schema.json")}"
+resource "google_storage_bucket" "retrieve_courses" {
+  name = "retrieve_courses"
+}
+
+resource "google_storage_bucket_object" "archive" {
+  name   = "${var.cloud_func_name}.zip"
+  bucket = "${google_storage_bucket.retrieve_courses.name}"
+  source = "${data.archive_file.gcp_read_courses_dist.output_path}"
+}
+
+resource "google_cloudfunctions_function" "function" {
+  name                  = "gcp-read-courses-cf"
+  description           = "A serverless function to retrieve records"
+  region                = "us-east1"
+  available_memory_mb   = 128
+  source_archive_bucket = "${google_storage_bucket.retrieve_courses.name}"
+  source_archive_object = "${google_storage_bucket_object.archive.name}"
+  trigger_http          = true
+  timeout               = 60
+  entry_point           = "return_all_records"
+  runtime               = "python37"
+
+  environment_variables = {
+    MONGO_USER = "${var.UN}"
+    MONGO_PASS = "${var.PW}"
+  }
 }

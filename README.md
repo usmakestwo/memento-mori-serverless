@@ -2,7 +2,7 @@
 
 A script to automate project creation on Github
 
-## Install/Run Python Application
+## Install/Run Python Application - Locally
 
 1. Activate shell `pipenv shell`
 
@@ -14,8 +14,18 @@ A script to automate project creation on Github
 
 4. Run application `python main.py`
 
-## Install infrastructure
+## Run infrastructure - Cloud Functions
 
-1. Run `terraform install`
+1. Run `source ./config/init.sh`
 
-2. Deploy infrastructure `terraform apply`
+2. Run `terraform install`
+
+3. Deploy infrastructure `terraform apply`
+
+4. The following services will be available
+
+#### Fetch records
+
+https://us-east1-memento-mori-universitas.cloudfunctions.net/gcp-read-courses-cf
+
+#### Save records

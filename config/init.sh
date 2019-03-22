@@ -2,6 +2,8 @@ export ACCESS_TOKEN='xxx'
 export ORG='xxx'
 export MONGO_USER='xxx'
 export MONGO_PASS='xxx'
+export TF_VAR_UN='xxx'
+export TF_VAR_PW='xxx'
 export GOOGLE_CLOUD_KEYFILE_JSON='xxx'
 export GOOGLE_APPLICATION_CREDENTIALS='xxx'
 
