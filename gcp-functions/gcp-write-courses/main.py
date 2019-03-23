@@ -6,7 +6,7 @@ from utils.connect_github import GithubClient
 db = Datastore()
 git = GithubClient()
 
-def createProject(request):
+def create_project(request):
   if request.is_json:
     content = request.get_json()
     response = git.createRepo(content['name'], content['description'])

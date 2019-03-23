@@ -86,7 +86,7 @@ resource "google_cloudfunctions_function" "write_function" {
   source_archive_object = "${google_storage_bucket_object.write_archive.name}"
   trigger_http          = true
   timeout               = 60
-  entry_point           = "createProject"
+  entry_point           = "create_project"
   runtime               = "python37"
 
   environment_variables = {
