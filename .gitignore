@@ -3,6 +3,7 @@
 config/local-init.sh
 */*.terraform
 terraform/dist/
+terraform/terraform.tfstate
 terraform/terraform.tfstate.backup
 config/*.json
 # Byte-compiled / optimized / DLL files
