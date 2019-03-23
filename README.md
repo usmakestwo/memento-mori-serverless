@@ -26,8 +26,10 @@ A script to automate project creation on Github
 
 #### Fetch records
 
-GET https://us-east1-memento-mori-universitas.cloudfunctions.net/gcp-read-courses-cf
+`GET https://us-east1-memento-mori-universitas.cloudfunctions.net/gcp-read-courses-cf`
 
 #### Save records
 
+```
 POST https://us-east1-memento-mori-universitas.cloudfunctions.net/gcp-write-courses-cf -d '{"name": "Learning Something", "description": "What or why are we learning this"}'
+```
