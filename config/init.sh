@@ -2,10 +2,14 @@ export ACCESS_TOKEN='xxx'
 export ORG='xxx'
 export MONGO_USER='xxx'
 export MONGO_PASS='xxx'
-export TF_VAR_UN='xxx'
-export TF_VAR_PW='xxx'
 export GOOGLE_CLOUD_KEYFILE_JSON='xxx'
 export GOOGLE_APPLICATION_CREDENTIALS='xxx'
+
+# Terraform
+export TF_VAR_ACCESS_TOKEN='xxx'
+export TF_VAR_ORG='xxx'
+export TF_VAR_UN='xxx'
+export TF_VAR_PW='xxx'
 
 echo 'Access token initialized: '$ACCESS_TOKEN
 echo 'Organization set to:' $ORG
