@@ -29,3 +29,5 @@ A script to automate project creation on Github
 https://us-east1-memento-mori-universitas.cloudfunctions.net/gcp-read-courses-cf
 
 #### Save records
+
+https://us-east1-memento-mori-universitas.cloudfunctions.net/gcp-write-courses-cf
