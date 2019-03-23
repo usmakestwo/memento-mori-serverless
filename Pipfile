@@ -8,9 +8,8 @@ pylint = "*"
 
 [packages]
 pygithub = "*"
-pymongo = "*"
-dnspython = "*"
 flask = "*"
+pymongo = "~=3.4"
 
 [requires]
 python_version = "3.7"

@@ -2,6 +2,8 @@
 .DS_STORE
 config/local-init.sh
 */*.terraform
+terraform/dist/
+terraform/terraform.tfstate.backup
 config/*.json
 # Byte-compiled / optimized / DLL files
 __pycache__/
