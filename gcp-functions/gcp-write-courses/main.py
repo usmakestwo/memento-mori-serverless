@@ -7,16 +7,24 @@ db = Datastore()
 git = GithubClient()
 
 def create_project(request):
+  response.headers.set('Access-Control-Allow-Origin', '*')
+  response.headers.set('Access-Control-Allow-Methods', 'GET, POST')
   if request.is_json:
     content = request.get_json()
     response = git.createRepo(content['name'], content['description'])
     if response:
       db.insert_record(content['name'], content['description'])
-      return 'Project successfully created'
+      response = jsonify(text='Project successfully created'), 200
+      response.headers.set('Access-Control-Allow-Origin', '*')
+      response.headers.set('Access-Control-Allow-Methods', 'GET, POST')
+      return response
     else:
-      return jsonify(text='Failed creating project'), 400
+      response = jsonify(text='Failed creating project'), 400
+      response.headers.set('Access-Control-Allow-Origin', '*')
+      response.headers.set('Access-Control-Allow-Methods', 'GET, POST')
+      return response
   else:
-    return 'Not Valid JSON'
-  content = request.get_json()
-  print (content)
-  return 'JSON posted'
+    response = jsonify(text='Not valid JSON'), 400
+    response.headers.set('Access-Control-Allow-Origin', '*')
+    response.headers.set('Access-Control-Allow-Methods', 'GET, POST')
+    return response
