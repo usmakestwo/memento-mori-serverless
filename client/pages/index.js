@@ -9,7 +9,7 @@ import Courses from '../components/courses'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import courseAPI from '../api/courses'
 
-function IndexPage(props) {
+function IndexPage() {
   const [courses, setCourses] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const fetchData = async () => {
