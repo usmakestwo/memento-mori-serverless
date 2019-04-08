@@ -10,7 +10,7 @@ import FolderIcon from '@material-ui/icons/Folder'
 import CloudIcon from '@material-ui/icons/Cloud'
 import VisibilityIcon from '@material-ui/icons/Visibility'
 
-function Courses(props) {
+function ListCourses(props) {
   const { title, description } = props
   return (
     <List dense={true}>
@@ -35,9 +35,9 @@ function Courses(props) {
   )
 }
 
-Courses.propTypes = {
+ListCourses.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired
 }
 
-export default Courses
+export default ListCourses
