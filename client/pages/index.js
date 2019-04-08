@@ -38,6 +38,10 @@ function IndexPage(props) {
       fetchData()
     }
   }, [])
+  const createCourse = (data) => {
+    console.log(data)
+  }
+
   const handleClickOpen = () => {
     setOpen(true);
   }
@@ -82,7 +86,11 @@ function IndexPage(props) {
               </div>
             }
           </Grid>
-          <CourseDialog open={open} handleClose={handleClose}/>
+          <CourseDialog
+            open={open}
+            handleClose={handleClose}
+            createCourse={createCourse}
+          />
         </Grid>
     </div>
   )

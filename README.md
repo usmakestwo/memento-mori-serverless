@@ -33,3 +33,6 @@ A script to automate project creation on Github
 ```
 POST https://us-east1-memento-mori-universitas.cloudfunctions.net/gcp-write-courses-cf -d '{"name": "Learning Something", "description": "What or why are we learning this"}'
 ```
+
+#### Reference:
+- https://github.com/aduyng/blog-spa

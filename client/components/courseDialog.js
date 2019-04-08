@@ -8,11 +8,12 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 
 function CourseDialog(props){
+  const { open, handleClose, createCourse } = props
   return (
     <div>
         <Dialog
-          open={props.open}
-          onClose={props.handleClose}
+          open={open}
+          onClose={handleClose}
         >
           <DialogTitle id="form-dialog-title">Add Course</DialogTitle>
           <DialogContent>
@@ -26,9 +27,9 @@ function CourseDialog(props){
               label="Name"
               type="text"
               fullWidth
+              placeholder="Learning..."
             />
             <TextField
-              autoFocus
               margin="dense"
               id="description"
               label="Description"
@@ -37,10 +38,10 @@ function CourseDialog(props){
             />
           </DialogContent>
           <DialogActions>
-            <Button color="primary">
+            <Button onClick={createCourse} color="primary">
               Create
             </Button>
-            <Button onClick={props.handleClose} color="primary">
+            <Button onClick={handleClose} color="primary">
               Cancel
             </Button>
           </DialogActions>
