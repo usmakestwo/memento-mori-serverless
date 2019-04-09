@@ -1,6 +1,11 @@
 # Github Project Creation
 
-A script to automate project creation on Github
+An application to automate project creation on Github
+
+
+## Architecture
+
+![Memento Mori Universitas](https://user-images.githubusercontent.com/1566236/55802093-82148f80-5aa5-11e9-9002-f30c169b6fbf.png)
 
 ## Install/Run Python Application - Locally
 
