@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
 import Head from 'next/head'
-import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
-import AppBar from '@material-ui/core/AppBar'
 import Typography from '@material-ui/core/Typography'
-import Toolbar from '@material-ui/core/Toolbar'
-import ListCourses from '../components/listCourses'
-import CourseDialog from '../components/courseDialog'
 import CircularProgress from '@material-ui/core/CircularProgress';
+import MainToolbar from '../components/MainToolbar'
+import ListCourses from '../components/ListCourses'
+import CourseDialog from '../components/CourseDialog'
+import {
+  saveState,
+  loadState
+} from '../tools/localStorage'
 import courseAPI from '../api/courses'
 
 const styles = {
@@ -19,13 +21,14 @@ const styles = {
   grow: {
     flexGrow: 1,
   },
-};
+}
 
 function IndexPage(props) {
-  const { classes } = props
   const [courses, setCourses] = useState([])
+  const [pinned, setPinned] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [open, setOpen] = useState(false)
+
   const fetchData = async () => {
     setIsLoading(true)
     // const results = JSON.parse(await courseAPI())
@@ -33,54 +36,89 @@ function IndexPage(props) {
     setCourses(results)
     setIsLoading(false)
   }
+
+  // Save data to Session Storage
   useEffect(() => {
-    if (!courses.length) {
+    if (pinned.length > 0) {
+      saveState(pinned)
+    }
+  }, [pinned])
+
+  //Load Data
+  useEffect(() => {
+    const pinnedFromMemory = loadState()
+    // Load todos from Session Storage if available
+    if (pinnedFromMemory) {
+      setPinned(pinnedFromMemory)
+      fetchData()
+    } else {
       fetchData()
     }
-  }, [])
+}, []);
+
   const createCourse = (data) => {
     console.log(data)
   }
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setOpen(true)
   }
 
   const handleClose = () => {
-    setOpen(false);
+    setOpen(false)
   }
+  
+  const addToPin = id => {
+    setPinned(pinned.concat(
+      courses.filter((course, index) => {
+        if(course._id["$oid"] === id) {
+          course.favorite = true
+          setCourses(courses.splice(index))
+          return course
+        }
+      })
+    ))
+  }
+
   return (
-    <div>
+    <React.Fragment>>
         <Head>
           <title>Memento Mori Universitas</title>
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         </Head>
         <Grid container spacing={24}>
-          <div className={classes.root}>
-            <AppBar position="static">
-              <Toolbar>
-                <Typography variant="h6" color="inherit" className={classes.grow}>
-                  Memento Mori Universitas
-                </Typography>
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={handleClickOpen}
-                >
-                  Add
-                </Button>
-              </Toolbar>
-            </AppBar>
-          </div>
+          <MainToolbar {...props} handleClickOpen={handleClickOpen} />
           <Grid item xs={12}>
+            <Typography variant="h6" gutterBottom>
+              Pinned
+            </Typography>
+            { pinned.length > 1 ?
+                <div>
+                  {pinned.map(course =>
+                    <ListCourses
+                      key={course._id["$oid"]}
+                      title={course.name}
+                      description={course.description}
+                      path={course.path}
+                      addToPin={addToPin}
+                      favorite={course.favorite}
+                    />)
+                  }
+                </div>
+              : null
+            }
+            <hr />
             { isLoading ? <CircularProgress /> :
               <div>
                 {courses.map(course =>
                   <ListCourses
                     key={course._id["$oid"]}
+                    id={course._id["$oid"]}
                     title={course.name}
                     description={course.description}
                     path={course.path}
+                    addToPin={addToPin}
+                    favorite={course.favorite}
                   />)
                 }
               </div>
@@ -92,7 +130,7 @@ function IndexPage(props) {
             createCourse={createCourse}
           />
         </Grid>
-    </div>
+    </React.Fragment>
   )
 }
 
