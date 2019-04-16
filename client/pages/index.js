@@ -21,6 +21,10 @@ const styles = {
   grow: {
     flexGrow: 1,
   },
+  body: {
+    marginLeft: 10,
+    marginRight: 10
+  }
 }
 
 function IndexPage(props) {
@@ -57,6 +61,7 @@ function IndexPage(props) {
 }, []);
 
   const createCourse = (data) => {
+    debugger;
     console.log(data)
   }
 
@@ -88,9 +93,9 @@ function IndexPage(props) {
         </Head>
         <Grid container spacing={24}>
           <MainToolbar {...props} handleClickOpen={handleClickOpen} />
-          <Grid item xs={12}>
+          <Grid item xs={12} style={styles.body}>
             <Typography variant="h6" gutterBottom>
-              Pinned
+              In Progress
             </Typography>
             { pinned.length > 1 ?
                 <div>

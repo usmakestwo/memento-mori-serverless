@@ -38,7 +38,7 @@ function CourseDialog(props){
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={createCourse} color="primary">
+            <Button onClick={() => createCourse(event)} color="primary">
               Create
             </Button>
             <Button onClick={handleClose} color="primary">
