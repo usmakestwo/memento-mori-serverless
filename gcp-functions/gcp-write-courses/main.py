@@ -9,14 +9,14 @@ git = GithubClient()
 def create_project(request):
   if request.is_json:
     content = request.get_json()
-    response = git.createRepo(content['name'], content['description'])
-    if response:
-      db.insert_record(content['name'], content['description'])
-      return 'Project successfully created'
+    git_response = git.createRepo(content['name'], content['description'])
+    if git_response:
+      db.insert_record(content['name'], content['description'], git_response)
+      response = jsonify(text='Project successfully created'), 200
+      return response
     else:
-      return jsonify(text='Failed creating project'), 400
+      response = jsonify(text='Failed creating project'), 400
+      return response
   else:
-    return 'Not Valid JSON'
-  content = request.get_json()
-  print (content)
-  return 'JSON posted'
+    response = jsonify(text='Not valid JSON'), 400
+    return response

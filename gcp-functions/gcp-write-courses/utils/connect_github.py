@@ -12,6 +12,7 @@ class GithubClient():
 
   def createRepo(self, name="Sample", description="Learning A new skill"):
     github_name = name.replace(" ", "-").lower()
+    github_path = self.org + "/" + name.replace(" ", "-")
     print('Creating project ' + github_name)
     try:
       repo = self.organization.create_repo(
@@ -24,13 +25,13 @@ class GithubClient():
         has_wiki=True,
         private=False,
       )
-      repo = self.git.get_repo(self.org + "/" + name.replace(" ", "-"))
+      repo = self.git.get_repo(github_path)
       commit_message = "chore :robot: automated init"
-      print(repo)
+      print(github_path)
       repo.create_file("README.md", commit_message, TemplateBuilder().init_readme(name), branch="master")
       repo.create_file("resources/README.md", commit_message, TemplateBuilder().init_resource_readme(name), branch="master")
       repo.create_file("courses/README.md", commit_message, TemplateBuilder().init_courses_readme(name), branch="master")
       repo.create_file("praxi.yaml", commit_message, TemplateBuilder().init_praxi(github_name, name, description), branch="master")
-      return True
+      return github_path
     except Exception as e:
       print(e)
