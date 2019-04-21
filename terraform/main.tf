@@ -96,3 +96,38 @@ resource "google_cloudfunctions_function" "write_function" {
     MONGO_PASS = "${var.PW}"
   }
 }
+
+# GOOGLE CLOUD FUNCTION - Update Records
+data "archive_file" "gcp_update_courses_dist" {
+  type        = "zip"
+  source_dir  = "../gcp-functions/gcp-update-courses"
+  output_path = "dist/${var.cloud_func_name_update}.zip"
+}
+
+resource "google_storage_bucket" "update_courses" {
+  name = "update_courses"
+}
+
+resource "google_storage_bucket_object" "update_archive" {
+  name   = "${var.cloud_func_name_update}.zip"
+  bucket = "${google_storage_bucket.update_courses.name}"
+  source = "${data.archive_file.gcp_update_courses_dist.output_path}"
+}
+
+resource "google_cloudfunctions_function" "update_function" {
+  name                  = "gcp-update-courses-cf"
+  description           = "A serverless function to update records"
+  region                = "us-east1"
+  available_memory_mb   = 128
+  source_archive_bucket = "${google_storage_bucket.update_courses.name}"
+  source_archive_object = "${google_storage_bucket_object.update_archive.name}"
+  trigger_http          = true
+  timeout               = 60
+  entry_point           = "update_project"
+  runtime               = "python37"
+
+  environment_variables = {
+    MONGO_USER = "${var.UN}"
+    MONGO_PASS = "${var.PW}"
+  }
+}
