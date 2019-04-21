@@ -19,6 +19,11 @@ variable "cloud_func_name_write" {
   default = "universitas_write_courses"
 }
 
+variable "cloud_func_name_update" {
+  type = "string"
+  default = "universitas_update_courses"
+}
+
 provider "google" {
   project = "${var.project_name}"
   region  = "us-east4"
