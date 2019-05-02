@@ -8,6 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import MainToolbar from '../components/MainToolbar'
 import ListCourses from '../components/ListCourses'
 import CourseDialog from '../components/CourseDialog'
+import DashboardCourses from '../components/DashboardCourses'
 import {
   saveState,
   loadState
@@ -94,40 +95,7 @@ function IndexPage(props) {
         <Grid container spacing={24}>
           <MainToolbar {...props} handleClickOpen={handleClickOpen} />
           <Grid item xs={12} style={styles.body}>
-            <Typography variant="h6" gutterBottom>
-              In Progress
-            </Typography>
-            { pinned.length > 1 ?
-                <div>
-                  {pinned.map(course =>
-                    <ListCourses
-                      key={course._id["$oid"]}
-                      title={course.name}
-                      description={course.description}
-                      path={course.path}
-                      addToPin={addToPin}
-                      favorite={course.favorite}
-                    />)
-                  }
-                </div>
-              : null
-            }
-            <hr />
-            { isLoading ? <CircularProgress /> :
-              <div>
-                {courses.map(course =>
-                  <ListCourses
-                    key={course._id["$oid"]}
-                    id={course._id["$oid"]}
-                    title={course.name}
-                    description={course.description}
-                    path={course.path}
-                    addToPin={addToPin}
-                    favorite={course.favorite}
-                  />)
-                }
-              </div>
-            }
+            <DashboardCourses />
           </Grid>
           <CourseDialog
             open={open}
