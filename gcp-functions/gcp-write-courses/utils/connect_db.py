@@ -15,7 +15,14 @@ class Datastore:
     mydb = client["universitas_library"]
     mycol = mydb["projects"]
 
-    single_project = {"createdAt": datetime.datetime.now(), "name": name, "description": description, "path": "https://github.com/" + path.lower(), "uploaded": True}
+    single_project = {
+      "id": int(random.random() * 100000),
+      "createdAt": datetime.datetime.now(),
+      "title": name,
+      "description": description,
+      "path": "https://github.com/" + path.lower(),
+      "uploaded": True
+    }
 
     x = mycol.insert_one(single_project)
     return x.inserted_id

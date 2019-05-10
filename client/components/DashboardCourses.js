@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Board from 'react-trello'
-import data from '../api/mock.json';
+import data from '../api/mock.json'
+import mockData from '../api/mock2.json'
 
 const styles = {
   container: {
@@ -21,6 +22,12 @@ const styles = {
 }
 
 function DashboardCourses() {
+  const expensiveComputation = data => {
+    const target = { lanes: JSON.parse(data) }
+    console.log(target)
+    return target
+  }
+  const boardData = useState( () => expensiveComputation(data) )
   const onCard = (id, metadata, laneID) => {
     console.log(id);
     console.log(metadata);
@@ -34,8 +41,8 @@ function DashboardCourses() {
     console.log(cardDetails);
   }
   return (
-    <Board data={data} draggable onCardClick={onCard} handleDragEnd={onLane} />
+    <Board data={boardData[0]} draggable onCardClick={onCard} handleDragEnd={onLane} />
   )
 }
 
-export default DashboardCourses;
+export default DashboardCourses
