@@ -42,7 +42,7 @@ POST https://us-east1-memento-mori-universitas.cloudfunctions.net/gcp-write-cour
 ### Update records status
 
 ```
-POST https://us-east1-memento-mori-universitas.cloudfunctions.net/gcp-update-courses-cf -d '{"name": "Learning React Hooks", "status": 1}'
+POST https://us-east1-memento-mori-universitas.cloudfunctions.net/gcp-update-courses-cf -d '{"id": "123", "source": "backlog", "target": "wip"}'
 ```
 
 #### Reference:
