@@ -7,7 +7,7 @@ db = Datastore()
 def update_project(request):
   if request.is_json:
     content = request.get_json()
-    result = db.update_record(content['name'], content['status'])
+    result = db.update_record(content['id'], content['source'], content['target'])
     if result:
       response = jsonify(text='Project updated'), 200
     else:

@@ -15,7 +15,7 @@ function DashboardCourses() {
     window.open(path, "_blank")
   }
   const onLane = (cardId, sourceLaneId, targetLaneId, position, cardDetails) => {
-    console.log(`Updating id: ${cardDetails._id["$oid"]} to source ${targetLaneId}`)
+    console.log(`Updating id: ${cardDetails._id["$oid"]} from ${sourceLaneId} to ${targetLaneId}`)
   }
   return (
     <Board data={boardData[0]} draggable onCardClick={onCard} handleDragEnd={onLane} />
