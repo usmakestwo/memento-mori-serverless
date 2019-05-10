@@ -2,7 +2,50 @@
  * Returns a promise with from the Courses API
  * @returns Promise
  */
-export default async () => {
-  const res = await fetch('https://us-east1-memento-mori-universitas.cloudfunctions.net/gcp-read-courses-cf');
-  return res.json();
-};
+import {
+  getRecords,
+  writeRecords,
+  updateRecords
+} from '../config/production'
+
+export const fetchRecord = async () => {
+  const res = await fetch(getRecords);
+  return res.json()
+}
+
+/**
+ * Returns a promise with from the Courses API to create a course
+ * @param {string} id - ID
+ * @param {string} source - Source
+ * @param {string} target - Target
+ * @returns Promise
+ */
+export const updateRecord = async (id, source, target) => {
+  console.log(id)
+  console.log(source)
+  console.log(target)
+  const res = await fetch(updateRecords, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      id,
+      source,
+      target
+    })
+  })
+  return res.json()
+}
+
+/**
+ * Returns a promise with from the Courses API to create a course
+ * @param {object} payload - Course to create
+ * @returns Promise
+ */
+export const createRecord = async (payload) => {
+  const res = await fetch(writeRecords, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ name: payload.name, description: payload.description })
+  })
+  return res.json()
+}

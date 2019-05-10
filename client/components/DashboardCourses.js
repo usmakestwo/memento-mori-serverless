@@ -1,29 +1,48 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Board from 'react-trello'
-import data from '../api/mock.json'
+import { fetchRecord, updateRecord } from '../api/courses'
 import PropTypes from 'prop-types'
 
 function DashboardCourses() {
-  const expensiveComputation = data => {
-    const target = { lanes: JSON.parse(data) }
-    console.log(target)
-    return target
+  const [isLoading, setIsLoading] = useState(true);
+  const [board, setBoard] = useState([]);
+
+  // Fetch todos from API
+  const fetchData = async () => {
+    setIsLoading(true)
+    const result = await fetchRecord()
+    setBoard({ lanes: JSON.parse(result) })
+    setIsLoading(false)
   }
-  const boardData = useState( () => expensiveComputation(data) )
+
+  // Call Todos on load
+  useEffect(() => {
+    fetchData()
+  }, [])
+
   const onCard = (id, metadata, laneID) => {
-    let path = boardData[0].lanes.filter(lane => lane.id === laneID)[0].cards.filter(card => card.id === id)[0].path
+    let path = board[0].lanes.filter(lane => lane.id === laneID)[0].cards
+      .filter(card => card.id === id)[0].path
     window.open(path, "_blank")
   }
-  const onLane = (cardId, sourceLaneId, targetLaneId, position, cardDetails) => {
-    console.log(`Updating id: ${cardDetails._id["$oid"]} from ${sourceLaneId} to ${targetLaneId}`)
+
+  const onLane = async (cardId, sourceLaneId, targetLaneId, position, cardDetails) => {
+    const result = await updateRecord(cardDetails._id["$oid"], sourceLaneId, targetLaneId)
+    console.log(result)
+    fetchData()
   }
+
   return (
-    <Board data={boardData[0]} draggable onCardClick={onCard} handleDragEnd={onLane} />
+    <React.Fragment>
+    { isLoading ? <p>Loading...</p> :
+      <Board data={board} draggable onCardClick={onCard} handleDragEnd={onLane} />
+    }
+    </React.Fragment>
   )
 }
 
 DashboardCourses.propTypes = {
-  boardData: PropTypes.array.isRequired,
+  board: PropTypes.array.isRequired,
 }
 
 export default DashboardCourses
