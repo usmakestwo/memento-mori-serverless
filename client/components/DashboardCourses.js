@@ -21,15 +21,16 @@ function DashboardCourses() {
   }, [])
 
   const onCard = (id, metadata, laneID) => {
-    let path = board[0].lanes.filter(lane => lane.id === laneID)[0].cards
+    let path = board.lanes.filter(lane => lane.id === laneID)[0].cards
       .filter(card => card.id === id)[0].path
     window.open(path, "_blank")
   }
 
   const onLane = async (cardId, sourceLaneId, targetLaneId, position, cardDetails) => {
-    const result = await updateRecord(cardDetails._id["$oid"], sourceLaneId, targetLaneId)
-    console.log(result)
-    fetchData()
+    if (sourceLaneId !== targetLaneId) {
+      const result = await updateRecord(cardDetails._id["$oid"], sourceLaneId, targetLaneId)
+      fetchData()
+    }
   }
 
   return (
