@@ -2,5 +2,6 @@
   "extends": "airbnb",
   "rules": {
     "semi": ["error", "never"]
-  }
+  },
+  "globals": { "fetch": false, "window": false }
 }

@@ -7,18 +7,18 @@ function DashboardCourses(props) {
   const {
     board,
     isLoading,
-    updateRecord,
+    updateStatus,
   } = props
 
   const onCard = (id, metadata, laneID) => {
-    const path = board.lanes.filter(lane => lane.id === laneID)[0].cards
-      .filter(card => card.id === id)[0].path
+    const { path } = board.lanes.filter(lane => lane.id === laneID)[0].cards
+      .filter(card => card.id === id)[0]
     window.open(path, '_blank')
   }
 
   const onLane = async (cardId, sourceLaneId, targetLaneId, position, cardDetails) => {
     if (sourceLaneId !== targetLaneId) {
-      updateRecord(cardDetails._id.$oid, sourceLaneId, targetLaneId)
+      updateStatus(cardDetails._id.$oid, sourceLaneId, targetLaneId)
     }
   }
 
@@ -34,7 +34,7 @@ function DashboardCourses(props) {
 DashboardCourses.propTypes = {
   board: PropTypes.array.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  updateRecord: PropTypes.func.isRequired,
+  updateStatus: PropTypes.func.isRequired,
 }
 
 export default DashboardCourses

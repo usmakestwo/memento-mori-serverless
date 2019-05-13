@@ -5,11 +5,11 @@
 import {
   getRecords,
   writeRecords,
-  updateRecords
+  updateRecords,
 } from '../config/production'
 
 export const fetchRecord = async () => {
-  const res = await fetch(getRecords);
+  const res = await fetch(getRecords)
   return res.json()
 }
 
@@ -28,7 +28,7 @@ export const updateRecord = async (id, source, target) => {
     body: JSON.stringify({
       id,
       source,
-      target
+      target,
     }),
   })
   return res.status
@@ -42,8 +42,12 @@ export const updateRecord = async (id, source, target) => {
 export const createRecord = async (payload) => {
   const res = await fetch(writeRecords, {
     method: 'POST',
+    mode: 'cors',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name: payload.name, description: payload.description })
+    body: JSON.stringify({
+      name: payload.name,
+      description: payload.description,
+    }),
   })
-  return res.json()
+  return res.status
 }

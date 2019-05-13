@@ -9,7 +9,12 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import PropTypes from 'prop-types'
 
 function CourseDialog(props) {
-  const { open, handleClose, createCourse } = props
+  const {
+    open,
+    handleClose,
+    createCourse,
+    handleChange,
+  } = props
   return (
     <React.Fragment>
       <Dialog
@@ -29,6 +34,7 @@ function CourseDialog(props) {
             type="text"
             fullWidth
             placeholder="Learning..."
+            onChange={handleChange}
           />
           <TextField
             margin="dense"
@@ -36,10 +42,11 @@ function CourseDialog(props) {
             label="Description"
             type="text"
             fullWidth
+            onChange={handleChange}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => createCourse(this)} color="primary">
+          <Button onClick={createCourse} color="primary">
               Create
           </Button>
           <Button onClick={handleClose} color="primary">
@@ -55,6 +62,7 @@ CourseDialog.propTypes = {
   open: PropTypes.bool,
   handleClose: PropTypes.func.isRequired,
   createCourse: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
 }
 
 CourseDialog.defaultProps = {

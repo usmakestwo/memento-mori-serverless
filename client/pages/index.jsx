@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid'
 import MainToolbar from '../components/MainToolbar'
 import CourseDialog from '../components/CourseDialog'
 import DashboardCourses from '../components/DashboardCourses'
-import { fetchRecord, updateRecord } from '../api/courses'
+import { fetchRecord, updateRecord, createRecord } from '../api/courses'
 
 const styles = {
   root: {
@@ -23,6 +23,7 @@ const styles = {
 
 function IndexPage(props) {
   const [isLoading, setIsLoading] = useState(true)
+  const [course, setCourse] = useState({ name: '', description: '' })
   const [board, setBoard] = useState([])
   const [open, setOpen] = useState(false)
 
@@ -39,8 +40,23 @@ function IndexPage(props) {
     fetchData()
   }, [])
 
-  const createCourse = (data) => {
-    console.log(data)
+  const createCourse = async () => {
+    try {
+      const result = await createRecord(course)
+      console.log(result)
+      setOpen(false)
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error)
+      alert(error)
+    }
+  }
+
+  const handleChange = (event) => {
+    setCourse({
+      ...course,
+      [event.target.id]: event.target.value,
+    })
   }
 
   const handleClickOpen = () => {
@@ -74,13 +90,14 @@ function IndexPage(props) {
             board={board}
             isLoading={isLoading}
             fetchData={() => fetchData()}
-            updateStatus={() => updateStatus()}
+            updateStatus={(id, status, target) => updateStatus(id, status, target)}
           />
         </Grid>
         <CourseDialog
           open={open}
           handleClose={handleClose}
           createCourse={createCourse}
+          handleChange={handleChange}
         />
       </Grid>
     </React.Fragment>
