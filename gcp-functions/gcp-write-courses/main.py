@@ -1,4 +1,4 @@
-from flask import jsonify
+import flask
 from utils.connect_db import Datastore
 from utils.connect_github import GithubClient
 
@@ -30,8 +30,11 @@ def create_project(request):
     git_response = git.createRepo(content['name'], content['description'])
     if git_response:
       db.insert_record(content['name'], content['description'], git_response)
-      return ('Project successfully created', 200, headers)
+      resp = flask.Response(response="Project successfully created", status=200, headers=headers)
+      return resp
     else:
-      return ('Failed creating project', 400, headers)
+      resp = flask.Response(response="Failed creating project", status=404, headers=headers)
+      return resp
   else:
-    return ('Not valid JSON', 400, headers)
+    resp = flask.Response(response="Not valid JSON", status=400, headers=headers)
+    return resp

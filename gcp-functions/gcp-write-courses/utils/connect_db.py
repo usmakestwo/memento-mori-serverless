@@ -3,7 +3,7 @@ import pymongo
 import datetime
 import json
 import random
-from bson import json_util
+from bson import json_util, objectid
 
 class Datastore:
   def __init__(self):
@@ -14,7 +14,8 @@ class Datastore:
   def insert_record(self, name, description, path, uploaded=True):
     client = pymongo.MongoClient(self.url)
     mydb = client["universitas_library"]
-    mycol = mydb["projects"]
+    projects = mydb["projects"]
+    kanban = mydb["kanban"]
 
     single_project = {
       "id": int(random.random() * 100000),
@@ -25,14 +26,15 @@ class Datastore:
       "uploaded": True
     }
 
-    x = mycol.insert_one(single_project)
-    return x.inserted_id
+    x = projects.insert_one(single_project)
+    y = kanban.update_one({"id": "backlog"}, {"$push": {"cards": objectid.ObjectId(x.inserted_id)}})
+    return y.modified_count
 
   def return_all_records(self):
     client = pymongo.MongoClient(self.url)
     mydb = client["universitas_library"]
-    mycol = mydb["projects"]
+    projects = mydb["projects"]
     collection = []
-    for record in mycol.find():
+    for record in projects.find():
       collection.append(record)
     return json.dumps(collection, default=json_util.default)

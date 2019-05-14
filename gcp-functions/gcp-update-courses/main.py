@@ -1,3 +1,4 @@
+import flask
 from utils.connect_db import Datastore
 
 # Databases
@@ -25,8 +26,11 @@ def update_project(request):
     content = request.get_json()
     result = db.update_record(content['id'], content['source'], content['target'])
     if result:
-      return ('Project Updated', 200, headers)
+      resp = flask.Response(response="Project Updated", status=200, headers=headers)
+      return resp
     else:
-      return ('Project not found', 404, headers)
+      resp = flask.Response(response="Project not found", status=404, headers=headers)
+      return resp
   else:
-    return ('Not valid JSON', 400, headers)
+    resp = flask.Response(response="Not valid JSON", status=400, headers=headers)
+    return resp

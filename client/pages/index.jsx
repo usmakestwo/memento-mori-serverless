@@ -42,12 +42,11 @@ function IndexPage(props) {
 
   const createCourse = async () => {
     try {
-      const result = await createRecord(course)
-      console.log(result)
+      await createRecord(course)
       setOpen(false)
+      fetchData()
     } catch (error) {
       // eslint-disable-next-line no-console
-      console.error(error)
       alert(error)
     }
   }
