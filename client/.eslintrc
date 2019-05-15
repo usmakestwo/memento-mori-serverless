@@ -3,5 +3,5 @@
   "rules": {
     "semi": ["error", "never"]
   },
-  "globals": { "fetch": false, "window": false }
+  "globals": { "fetch": false, "window": false, "document": false }
 }

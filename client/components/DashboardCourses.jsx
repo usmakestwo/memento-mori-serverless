@@ -1,9 +1,21 @@
 /* eslint-disable no-underscore-dangle */
 import React from 'react'
 import Board from 'react-trello'
+import { makeStyles } from '@material-ui/styles'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import PropTypes from 'prop-types'
 
+const useStyles = makeStyles({
+  background: {
+    padding: 0,
+  },
+  progress: {
+    margin: 50,
+  },
+})
+
 function DashboardCourses(props) {
+  const classes = useStyles()
   const {
     board,
     isLoading,
@@ -23,8 +35,8 @@ function DashboardCourses(props) {
   }
 
   return (
-    <React.Fragment>
-      { isLoading ? <p>Loading...</p>
+    <React.Fragment className={classes.background}>
+      { isLoading ? <CircularProgress className={classes.progress} />
         : <Board data={board} draggable onCardClick={onCard} handleDragEnd={onLane} />
     }
     </React.Fragment>
@@ -32,7 +44,10 @@ function DashboardCourses(props) {
 }
 
 DashboardCourses.propTypes = {
-  board: PropTypes.array.isRequired,
+  board: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.array,
+  ]).isRequired,
   isLoading: PropTypes.bool.isRequired,
   updateStatus: PropTypes.func.isRequired,
 }

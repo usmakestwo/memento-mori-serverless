@@ -18,7 +18,7 @@ class Datastore:
     kanban = mydb["kanban"]
 
     single_project = {
-      "id": int(random.random() * 100000),
+      "id": str(int(random.random() * 100000)),
       "createdAt": datetime.datetime.now(),
       "title": name,
       "description": description,

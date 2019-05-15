@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid'
 import MainToolbar from '../components/MainToolbar'
 import CourseDialog from '../components/CourseDialog'
 import DashboardCourses from '../components/DashboardCourses'
+// import mockData from '../api/mock.json'
 import { fetchRecord, updateRecord, createRecord } from '../api/courses'
 
 const styles = {
