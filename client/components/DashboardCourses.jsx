@@ -6,9 +6,6 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import PropTypes from 'prop-types'
 
 const useStyles = makeStyles({
-  background: {
-    padding: 0,
-  },
   progress: {
     margin: 50,
   },
@@ -35,7 +32,7 @@ function DashboardCourses(props) {
   }
 
   return (
-    <React.Fragment className={classes.background}>
+    <React.Fragment>
       { isLoading ? <CircularProgress className={classes.progress} />
         : <Board data={board} draggable onCardClick={onCard} handleDragEnd={onLane} />
     }
