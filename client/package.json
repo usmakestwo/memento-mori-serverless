@@ -1,7 +1,7 @@
 {
-  "name": "memento-mori-universitas-viewer",
+  "name": "memento-mori-universitas",
   "version": "1.0.0",
-  "description": "",
+  "description": "A way to organize and keep track of your learning",
   "main": "index.js",
   "scripts": {
     "dev": "next",

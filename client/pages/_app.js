@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable class-methods-use-this */
 import React from 'react'
 import App, { Container } from 'next/app'
 import Head from 'next/head'
@@ -14,7 +16,7 @@ export default class ProjectViewerApp extends App {
     return { pageProps }
   }
 
-  renderHead(){
+  renderHead() {
     return (
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,7 +25,7 @@ export default class ProjectViewerApp extends App {
           href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
         />
       </Head>
-    );
+    )
   }
 
   render() {
@@ -34,6 +36,6 @@ export default class ProjectViewerApp extends App {
         <CssBaseline />
         <Component {...pageProps} />
       </Container>
-    );
+    )
   }
 }
