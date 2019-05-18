@@ -8,6 +8,7 @@ terraform/terraform.tfstate.backup
 config/*.json
 client/node_modules/
 client/.next
+client/out
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
