@@ -1,14 +1,11 @@
 # Custom
 .DS_STORE
-config/local-init.sh
 */*.terraform
 terraform/dist/
 terraform/terraform.tfstate
 terraform/terraform.tfstate.backup
 config/*.json
-client/node_modules/
-client/.next
-client/out
+config/local-init.sh
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
